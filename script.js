@@ -1,9 +1,18 @@
 let timeIDs = $('.time-block')
 console.log(timeIDs)
 let displaytime = document.getElementById('currentDay')
-let hour
-let test
+let saveBtn = $('.saveBtn')
+let hour = '';
+let test = '';
+let data = {
+    id: "",
+    text:"",
+};
+let storeData = localStorage.getItem("plan")||[];
 
+
+
+// used for time tracking
 function hourofday(){
 hour = moment().get('hour');
 displaytime.textContent = moment().format("lll");
@@ -14,10 +23,11 @@ colorchange();
 
 setInterval(hourofday,1000)
 
+
+// Changes colors of rows depending on time of day
 function colorchange(){
 timeIDs.each(function(){
 var i = this.id;
-console.log(i)
 if(test == i ){
     console.log('hello');
     $(this).addClass('present');
@@ -32,3 +42,20 @@ if (test > i){
 }
 });
 }
+
+
+
+
+
+
+saveBtn.on('click',function(event){
+    event.preventDefault();
+    var tag = $(this).parents()
+    console.log(tag);
+    data.id = (tag[1].id);
+    data.text = tag[1].childNodes[3].value;
+    console.log(data)
+    data.push
+  
+}) 
+
