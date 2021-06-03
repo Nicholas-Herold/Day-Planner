@@ -5,10 +5,13 @@ let saveBtn = $('.saveBtn')
 let hour = '';
 let test = '';
 let data = {
-    id: "",
+    value:"",
     text:"",
 };
+let tag = "";
+let found = "";
 let storeData = localStorage.getItem("plan")||[];
+console.log(storeData)
 
 
 
@@ -17,7 +20,7 @@ function hourofday(){
 hour = moment().get('hour');
 displaytime.textContent = moment().format("lll");
 test = hour - 4
-console.log(test)
+// console.log(test)
 colorchange();
 }
 
@@ -49,13 +52,47 @@ if (test > i){
 
 
 saveBtn.on('click',function(event){
+    data ={
+        value:"", 
+        text:""
+    };
+    tag ="";
     event.preventDefault();
-    var tag = $(this).parents()
+    tag = $(this).parents()
     console.log(tag);
-    data.id = (tag[1].id);
-    data.text = tag[1].childNodes[3].value;
-    console.log(data)
-    data.push
+    
+    replace()
   
 }) 
+
+ 
+
+function adding() {
+    console.log(data)
+    storeData.push(data)
+}
+
+function replace (){
+    let position = parseInt( tag[1].children[1].id);
+    data.value = position;
+    data.text = tag[1].children[1].value;
+    console.log(position)
+    
+
+    
+
+    
+        let findval= storeData.findIndex(dat => dat.value == position)
+        console.log(findval)
+        if (findval == -1){
+            adding ()}
+        else{
+            storeData[findval].text = data.text;}
+    console.log(storeData);
+    localStorage.setItem('plan', JSON.stringify(storeData));
+        return   
+
+    }
+  
+        
 
